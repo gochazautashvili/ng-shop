@@ -1,0 +1,175 @@
+.header {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  height: 80px;
+
+  background: #000;
+
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+
+  .logo {
+    font-size: 30px;
+    font-weight: 800;
+    color: white;
+    cursor: pointer;
+    text-wrap: nowrap;
+
+    letter-spacing: 2px;
+    text-transform: uppercase;
+
+    @media (max-width: 540px) {
+      display: none;
+    }
+
+    span {
+      color: blueviolet;
+    }
+  }
+
+  .search {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 25px;
+
+    width: 100%;
+    max-width: 600px;
+    height: 40px;
+
+    input {
+      width: 100%;
+      height: 100%;
+
+      color: white;
+      font-size: 18px;
+
+      background: none;
+      outline: none;
+      border: 1px solid white;
+      border-radius: 8px;
+      padding: 0 10px;
+    }
+
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      width: 130px;
+      height: 100%;
+
+      font-size: 18px;
+      font-weight: 700;
+
+      outline: none;
+      border: 1px solid white;
+      border-radius: 8px;
+
+      background: none;
+      color: white;
+    }
+  }
+}
+
+.cart {
+  position: relative;
+  cursor: pointer;
+
+  span {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 20px;
+    height: 20px;
+    border-radius: 30px;
+
+    background-color: red;
+  }
+}
+
+.auth {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+
+  span {
+    color: rgb(153, 110, 194);
+    font-size: 25px;
+    font-weight: 900;
+    margin: 0 5px;
+  }
+
+  button {
+    background: none;
+    outline: none;
+
+    font-size: 18px;
+    font-weight: 500;
+    color: white;
+    cursor: pointer;
+    text-wrap: nowrap;
+  }
+
+  .signup {
+    border: 1px solid black;
+  }
+
+  .signin {
+    border: none;
+  }
+}
+
+.left {
+  display: flex;
+  align-items: center;
+}
+
+.user {
+  width: 40px;
+  height: 40px;
+  background-color: gray;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-left: 30px;
+}
+
+.user__box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.signout {
+  background: none;
+  outline: none;
+
+  font-size: 16px;
+  font-weight: 500;
+  color: white;
+  cursor: pointer;
+
+  border: none;
+  text-wrap: nowrap;
+}

@@ -1,0 +1,17 @@
+<section class="container box">
+  <form class="form">
+    <input
+      type="email"
+      placeholder="example@gmail.com"
+      [(ngModel)]="user.email"
+      name="email"
+    />
+    <input
+      type="password"
+      placeholder="*********"
+      [(ngModel)]="user.password"
+      name="password"
+    />
+    <button (click)="signIn()" type="submit">Sign In</button>
+  </form>
+</section>

@@ -1,0 +1,131 @@
+import { Component } from '@angular/core';
+import { ProductsService } from '../../services/products.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CartService } from '../../services/cart.service';
+import { UserService } from '../../services/user.service';
+
+@Component({
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrl: './home.component.scss',
+})
+export class HomeComponent {
+  products: any[] = [];
+  loading: boolean = false;
+  categories: any[] = [];
+  brands: any[] = [];
+  activeLink: string | number = '';
+  activePrice: string = '2000';
+  activeRating: string = '1';
+  user: any = null;
+
+  constructor(
+    private productsData: ProductsService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private cartApi: CartService,
+    private userApi: UserService
+  ) {
+    userApi.getUser().subscribe((data) => {
+      this.user = data;
+    });
+    route.queryParams.subscribe((data: any) => {
+      this.getSearchedProducts(
+        data.keyword || '',
+        data.category || '',
+        data.brand || '',
+        data.price || '2000',
+        data.rating || '1'
+      );
+    });
+    this.getCategory();
+    this.getBrand();
+  }
+
+  // cart
+
+  handleAddInToCart(id: string) {
+    if (!!this.user.cartID) {
+      this.cartApi.updateCart(id, 1).subscribe((data) => {});
+    } else {
+      this.cartApi.addToCart(id, 1).subscribe((data) => {});
+    }
+
+    this.cartApi.cartUpdate.next(true);
+  }
+
+  // get products
+
+  getSearchedProducts(
+    query: string,
+    id: string | number,
+    brand: string,
+    price: string,
+    rating: string
+  ) {
+    this.loading = true;
+    this.products = [];
+
+    this.productsData
+      .getSearchProducts(query, id, brand, price, rating)
+      .subscribe((data: any) => {
+        this.products = data.products;
+        this.loading = false;
+      });
+  }
+
+  // search fc
+  handleRatingChange(e: any) {
+    this.activeRating = e.target.value;
+    this.router.navigate(['/'], {
+      queryParams: { rating: e.target.value },
+      queryParamsHandling: 'merge',
+    });
+  }
+
+  handlePriceChange(e: any) {
+    this.activePrice = e.target.value;
+    this.router.navigate(['/'], {
+      queryParams: { price: e.target.value },
+      queryParamsHandling: 'merge',
+    });
+  }
+
+  searchByCategory(category: string) {
+    if (category !== '') {
+      this.router.navigate(['/'], {
+        queryParams: { category: category },
+        queryParamsHandling: 'merge',
+      });
+    } else {
+      this.router.navigate(['/']);
+    }
+    this.productsData.productUpdate.next(true);
+  }
+
+  searchByBrand(brand: string) {
+    if (brand !== '') {
+      this.router.navigate(['/'], {
+        queryParams: { brand: brand },
+        queryParamsHandling: 'merge',
+      });
+    } else {
+      this.router.navigate(['/']);
+    }
+    this.productsData.productUpdate.next(true);
+  }
+
+  // get filter data
+
+  getCategory() {
+    this.productsData.getAllCategory().subscribe((data: any) => {
+      this.categories = data;
+    });
+  }
+
+  getBrand() {
+    this.productsData.getAllBrands().subscribe((data: any) => {
+      this.brands = data;
+    });
+  }
+}

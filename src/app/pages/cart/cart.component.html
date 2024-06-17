@@ -1,0 +1,47 @@
+<p class="loading" *ngIf="loading && carts.length > 0">Loading...</p>
+<p class="loading" *ngIf="carts.length < 1">Cart is empty.</p>
+<table *ngIf="!loading" class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">image</th>
+      <th scope="col">title</th>
+      <th scope="col">price</th>
+      <th scope="col">quantity</th>
+      <th scope="col">action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let cart of carts; index as i">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>
+        <img
+          class="img"
+          [src]="cart.productId.thumbnail"
+          alt=""
+          width="60"
+          height="60"
+        />
+      </td>
+      <td>{{ cart.productId.title }}</td>
+      <td>${{ cart.pricePerQuantity }}</td>
+      <td>{{ cart.quantity }}</td>
+      <td>
+        <span
+          (click)="deleteProductToCart(cart.productId._id)"
+          class="delete"
+          type="button"
+          >Delete</span
+        >
+      </td>
+    </tr>
+  </tbody>
+</table>
+<button
+  *ngIf="carts.length > 0"
+  (click)="handleCheckout()"
+  class="checkout"
+  type="button"
+>
+  Checkout
+</button>

@@ -1,0 +1,52 @@
+<section class="container box">
+  <form class="form">
+    <input
+      type="text"
+      placeholder="firstName"
+      [(ngModel)]="user.firstName"
+      name="firstName"
+    />
+    <input
+      type="text"
+      placeholder="lastName"
+      [(ngModel)]="user.lastName"
+      name="lastName"
+    />
+    <input type="number" placeholder="age" [(ngModel)]="user.age" name="age" />
+    <input
+      type="email"
+      placeholder="example@gmail.com"
+      [(ngModel)]="user.email"
+      name="email"
+    />
+    <input
+      type="password"
+      placeholder="password"
+      [(ngModel)]="user.password"
+      name="password"
+    />
+    <div class="gender">
+      <div class="cont">
+        <input
+          type="radio"
+          id="MALE"
+          name="gender"
+          title="MALE"
+          (change)="handleGenderChange('MALE')"
+        />
+        <label for="MALE">MALE</label>
+      </div>
+      <div class="cont">
+        <input
+          type="radio"
+          id="WOMEN"
+          name="gender"
+          title="WOMEN"
+          (change)="handleGenderChange('WOMEN')"
+        />
+        <label for="WOMEN">WOMEN</label>
+      </div>
+    </div>
+    <button (click)="signUp()" type="submit">Sign Up</button>
+  </form>
+</section>

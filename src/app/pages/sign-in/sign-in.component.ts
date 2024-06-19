@@ -16,13 +16,11 @@ export class SignInComponent {
   userEx: any = null;
 
   constructor(private userData: UserService, private router: Router) {
-    userData.getUser().subscribe((data: any) => {
-      this.userEx = data;
+    const token = localStorage.getItem('access_token');
 
-      if (this.userEx) {
-        router.navigate(['/']);
-      }
-    });
+    if (token) {
+      router.navigate(['/']);
+    }
   }
 
   signIn() {

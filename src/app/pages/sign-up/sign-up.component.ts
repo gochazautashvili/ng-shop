@@ -21,20 +21,17 @@ export class SignUpComponent {
       'https://tse4.mm.bing.net/th?id=OIP.EYWUoJwu63yE6_AMbZ_X9gHaFj&pid=Api&P=0&h=220',
     gender: '',
   };
-  userEx: any = null;
 
   handleGenderChange(gender: string) {
     this.user.gender = gender;
   }
 
   constructor(private userData: UserService, private router: Router) {
-    userData.getUser().subscribe((data: any) => {
-      this.userEx = data;
+    const token = localStorage.getItem('access_token');
 
-      if (this.userEx) {
-        router.navigate(['/']);
-      }
-    });
+    if (token) {
+      router.navigate(['/']);
+    }
   }
 
   signUp() {

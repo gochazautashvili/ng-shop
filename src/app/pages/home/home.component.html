@@ -55,6 +55,7 @@
     <div *ngFor="let product of products" class="product__card">
       <div class="img">
         <img
+          [routerLink]="'/products/' + product._id"
           [src]="product.thumbnail"
           alt="{{ product.title }}"
           width="300"
@@ -62,15 +63,17 @@
         />
       </div>
       <div class="product__card_content">
-        <h1 class="title">{{ product.title }}</h1>
+        <h1 [routerLink]="'/products/' + product._id" class="title">
+          {{ product.title.slice(0, 20) }}...
+        </h1>
         <p class="price">Price: ${{ product.price.current }}</p>
         <p class="reting">Rating: {{ product.rating }}</p>
         <button
-          [disabled]="product.stock < 1"
-          (click)="handleAddInToCart(product._id)"
+          type="button"
+          [routerLink]="'/products/' + product._id"
           class="addToCart"
         >
-          {{ product.stock < 1 ? "0 item in db" : "Add To Cart" }}
+          View Product
         </button>
       </div>
     </div>

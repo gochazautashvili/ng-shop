@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { HomeComponent } from './pages/home/home.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { SingleProductComponent } from './pages/single-product/single-product.component';
@@ -33,7 +33,7 @@ import { SignUpComponent } from './pages/sign-up/sign-up.component';
     CommonModule,
     FormsModule,
   ],
-  providers: [ProductsService],
+  providers: [ProductsService, DatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

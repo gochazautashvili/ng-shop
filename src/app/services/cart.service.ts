@@ -9,9 +9,7 @@ export class CartService {
   cartUpdate: Subject<boolean> = new Subject<boolean>();
   constructor(private http: HttpClient) {}
 
-  addToCart(id: string, quantity: number) {
-    const token = localStorage.getItem('access_token');
-
+  addToCart(id: string, quantity: number, token: string) {
     return this.http.post(
       'https://api.everrest.educata.dev/shop/cart/product',
       { id, quantity },
@@ -24,9 +22,7 @@ export class CartService {
     );
   }
 
-  updateCart(id: string, quantity: number) {
-    const token = localStorage.getItem('access_token');
-
+  updateCart(id: string, quantity: number, token: string) {
     return this.http.patch(
       'https://api.everrest.educata.dev/shop/cart/product',
       { id, quantity },
@@ -39,9 +35,7 @@ export class CartService {
     );
   }
 
-  getCart() {
-    const token = localStorage.getItem('access_token');
-
+  getCart(token: string) {
     return this.http.get(' https://api.everrest.educata.dev/shop/cart', {
       headers: {
         accept: 'application/json',
@@ -50,9 +44,7 @@ export class CartService {
     });
   }
 
-  deleteCartProduct(id: string) {
-    const token = localStorage.getItem('access_token');
-
+  deleteCartProduct(id: string, token: string) {
     return this.http.delete(
       'https://api.everrest.educata.dev/shop/cart/product',
       {
@@ -64,9 +56,7 @@ export class CartService {
     );
   }
 
-  checkout() {
-    const token = localStorage.getItem('access_token');
-
+  checkout(token: string) {
     return this.http.post(
       'https://api.everrest.educata.dev/shop/cart/checkout',
       {},

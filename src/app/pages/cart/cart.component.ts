@@ -28,9 +28,13 @@ export class CartComponent {
   }
 
   getCart() {
+    const token = localStorage.getItem('access_token');
+
+    if (!token) return;
+
     this.loading = true;
     this.carts = [];
-    this.cartApi.getCart().subscribe((data: any) => {
+    this.cartApi.getCart(token).subscribe((data: any) => {
       this.carts = data.products;
       data.products.map((product: any) => {
         this.productApi
@@ -48,13 +52,25 @@ export class CartComponent {
   }
 
   deleteProductToCart(id: string) {
-    this.cartApi.deleteCartProduct(id).subscribe((data) => {
+    const token = localStorage.getItem('access_token');
+
+    if (!token) {
+      return alert('Unauthorized');
+    }
+
+    this.cartApi.deleteCartProduct(id, token).subscribe((data) => {
       this.cartApi.cartUpdate.next(true);
     });
   }
 
   handleCheckout() {
-    this.cartApi.checkout().subscribe((data: any) => {
+    const token = localStorage.getItem('access_token');
+
+    if (!token) {
+      return alert('Unauthorized');
+    }
+
+    this.cartApi.checkout(token).subscribe((data: any) => {
       if (data.success) {
         window.location.reload();
       }

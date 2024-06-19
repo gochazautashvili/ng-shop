@@ -9,6 +9,19 @@ export class ProductsService {
   productUpdate: Subject<boolean> = new Subject<boolean>();
   constructor(private http: HttpClient) {}
 
+  rateProduct(productId: string, rate: number, token: string) {
+    return this.http.post(
+      'https://api.everrest.educata.dev/shop/products/rate',
+      { productId, rate },
+      {
+        headers: {
+          accept: 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  }
+
   getSearchProducts(
     query: string,
     id: number | string,

@@ -1,1 +1,99 @@
-<p>single-product works!</p>
+<h1 class="loading" *ngIf="loading">Loading...</h1>
+
+<section class="container" *ngIf="!loading">
+  <div class="single__page">
+    <div class="img">
+      <img
+        [src]="products?.thumbnail"
+        alt="single product image"
+        width="500"
+        height="500"
+        loading="eager"
+      />
+    </div>
+    <div class="content">
+      <h1 class="title">{{ products?.title }}</h1>
+      <p class="price desc">
+        Price: <span>${{ products?.price?.current }}</span>
+      </p>
+      <p class="price desc">
+        Published At:
+        <span>{{ datePipe.transform(products?.issueDate, "MMMM d, y") }}</span>
+      </p>
+      <p class="price desc">
+        Brand:
+        <span>{{ products?.brand }}</span>
+      </p>
+      <p class="price desc">
+        Stock:
+        <span>{{ products?.stock }}</span>
+      </p>
+      <div class="rate">
+        <p>Rate:</p>
+        <div class="box">
+          <button
+            class="btn"
+            (click)="rateProduct(products._id, 1)"
+            type="button"
+          >
+            1
+          </button>
+          <button
+            class="btn"
+            (click)="rateProduct(products._id, 2)"
+            type="button"
+          >
+            2
+          </button>
+          <button
+            class="btn"
+            (click)="rateProduct(products._id, 3)"
+            type="button"
+          >
+            3
+          </button>
+          <button
+            class="btn"
+            (click)="rateProduct(products._id, 4)"
+            type="button"
+          >
+            4
+          </button>
+          <button
+            class="btn"
+            (click)="rateProduct(products._id, 5)"
+            type="button"
+          >
+            5
+          </button>
+        </div>
+      </div>
+      <button
+        [disabled]="products?.stock < 1"
+        (click)="handleAddInToCart(products._id)"
+        type="button"
+        class="addToCart"
+      >
+        Add To Cart
+      </button>
+      <hr />
+      <div class="bottom">
+        <div class="description">
+          <p class="description__title">Description:</p>
+          {{ products?.description }}
+        </div>
+        <hr />
+        <div class="review">
+          <div *ngFor="let user of users" class="users">
+            <div class="name">
+              User:
+              <p>{{ user.data.firstName }}</p>
+              <p>{{ user.data.lastName }}</p>
+            </div>
+            <p>Rated: {{ user.rating.value }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

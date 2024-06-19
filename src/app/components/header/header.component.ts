@@ -20,10 +20,14 @@ export class HeaderComponent {
     private user: UserService,
     private cart: CartService
   ) {
-    cart.getCart().subscribe((data: any) => {
+    const token = localStorage.getItem('access_token');
+
+    if (!token) return;
+
+    cart.getCart(token).subscribe((data: any) => {
       this.cartL = data.products;
     });
-    user.getUser().subscribe((res: any) => {
+    user.getUser(token).subscribe((res: any) => {
       this.userData = res;
     });
   }

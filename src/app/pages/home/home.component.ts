@@ -23,12 +23,16 @@ export class HomeComponent {
     private productsData: ProductsService,
     private route: ActivatedRoute,
     private router: Router,
-    private cartApi: CartService,
     private userApi: UserService
   ) {
-    userApi.getUser().subscribe((data) => {
-      this.user = data;
-    });
+    const token = localStorage.getItem('access_token');
+
+    if (token) {
+      userApi.getUser(token).subscribe((data) => {
+        this.user = data;
+      });
+    }
+
     route.queryParams.subscribe((data: any) => {
       this.getSearchedProducts(
         data.keyword || '',
@@ -40,18 +44,6 @@ export class HomeComponent {
     });
     this.getCategory();
     this.getBrand();
-  }
-
-  // cart
-
-  handleAddInToCart(id: string) {
-    if (!!this.user.cartID) {
-      this.cartApi.updateCart(id, 1).subscribe((data) => {});
-    } else {
-      this.cartApi.addToCart(id, 1).subscribe((data) => {});
-    }
-
-    this.cartApi.cartUpdate.next(true);
   }
 
   // get products

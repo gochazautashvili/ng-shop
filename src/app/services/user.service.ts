@@ -27,10 +27,17 @@ export class UserService {
       });
   }
 
-  getUser() {
-    const token = localStorage.getItem('access_token');
-
+  getUser(token: string) {
     return this.http.get('https://api.everrest.educata.dev/auth', {
+      headers: {
+        accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
+  getUserById(id: string, token: string) {
+    return this.http.get(`https://api.everrest.educata.dev/auth/id/${id}`, {
       headers: {
         accept: 'application/json',
         Authorization: `Bearer ${token}`,

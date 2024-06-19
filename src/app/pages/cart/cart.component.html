@@ -6,8 +6,8 @@
       <th scope="col">#</th>
       <th scope="col">image</th>
       <th scope="col">title</th>
-      <th scope="col">price</th>
-      <th scope="col">quantity</th>
+      <th scope="col">stock</th>
+      <th scope="col">rating</th>
       <th scope="col">action</th>
     </tr>
   </thead>
@@ -17,18 +17,18 @@
       <td>
         <img
           class="img"
-          [src]="cart.productId.thumbnail"
+          [src]="cart?.productId?.thumbnail"
           alt=""
           width="60"
           height="60"
         />
       </td>
-      <td>{{ cart.productId.title }}</td>
-      <td>${{ cart.pricePerQuantity }}</td>
-      <td>{{ cart.quantity }}</td>
+      <td>{{ cart?.productId?.title }}</td>
+      <td>{{ cart?.productId?.stock }}</td>
+      <td>{{ cart?.productId?.rating }}</td>
       <td>
         <span
-          (click)="deleteProductToCart(cart.productId._id)"
+          (click)="deleteProductToCart(cart?.productId?._id)"
           class="delete"
           type="button"
           >Delete</span

@@ -1,5 +1,13 @@
 <h1 class="loading" *ngIf="loading">Loading...</h1>
 
+<div
+  (click)="handleMessage()"
+  [class]="isActive ? 'message active' : 'message'"
+  *ngIf="isAddProduct"
+>
+  <p>Product Added in to cart!</p>
+</div>
+
 <section class="container" *ngIf="!loading">
   <div class="single__page">
     <div class="img">

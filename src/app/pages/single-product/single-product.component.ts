@@ -15,6 +15,9 @@ export class SingleProductComponent {
   loading: boolean = false;
   users: any[] = [];
   user: any = null;
+  isAddProduct: boolean = false;
+  timer: number = 3000;
+  isActive: boolean = false;
 
   constructor(
     private productAPI: ProductsService,
@@ -23,19 +26,21 @@ export class SingleProductComponent {
     private userAPI: UserService,
     private cartApi: CartService,
     private router: Router
-  ) {
+  ) {}
+
+  ngOnInit() {
     const token = localStorage.getItem('access_token');
 
     this.loading = true;
 
     if (token) {
-      userAPI.getUser(token).subscribe((data) => {
+      this.userAPI.getUser(token).subscribe((data) => {
         this.user = data;
       });
     }
 
-    route.params.subscribe((data: any) => {
-      productAPI.getProductsById(data.productId).subscribe((data: any) => {
+    this.route.params.subscribe((data: any) => {
+      this.productAPI.getProductsById(data.productId).subscribe((data: any) => {
         data.ratings.map((rating: any) => {
           if (rating.userId !== '663fc0a3cab554b5a4116efa' && token) {
             this.userAPI
@@ -52,6 +57,10 @@ export class SingleProductComponent {
     });
   }
 
+  handleMessage() {
+    this.isAddProduct = false;
+  }
+
   rateProduct(id: string, number: number) {
     const token = localStorage.getItem('access_token');
 
@@ -59,8 +68,13 @@ export class SingleProductComponent {
       return alert('Unauthorized');
     }
 
-    this.productAPI.rateProduct(id, number, token).subscribe((data: any) => {
-      console.log(data);
+    this.productAPI.rateProduct(id, number, token).subscribe({
+      next: (data: any) => {},
+      error: (error) => {
+        if (!error.ok) {
+          alert(error.error.error);
+        }
+      },
     });
   }
 
@@ -74,9 +88,45 @@ export class SingleProductComponent {
     }
 
     if (!!this.user.cartID) {
-      this.cartApi.updateCart(id, 1, token).subscribe((data) => {});
+      this.cartApi.updateCart(id, 1, token).subscribe({
+        next: (data) => {
+          this.isAddProduct = true;
+          this.isActive = false;
+
+          setTimeout(() => {
+            this.isActive = true;
+          }, 2000);
+
+          setTimeout(() => {
+            this.isAddProduct = false;
+          }, this.timer);
+        },
+        error: (error) => {
+          if (!error.ok) {
+            alert(error.error.error);
+          }
+        },
+      });
     } else {
-      this.cartApi.addToCart(id, 1, token).subscribe((data) => {});
+      this.cartApi.addToCart(id, 1, token).subscribe({
+        next: (data) => {
+          this.isAddProduct = true;
+          this.isActive = false;
+
+          setTimeout(() => {
+            this.isActive = true;
+          }, 2000);
+
+          setTimeout(() => {
+            this.isAddProduct = false;
+          }, this.timer);
+        },
+        error: (error) => {
+          if (!error.ok) {
+            alert(error.error.error);
+          }
+        },
+      });
     }
 
     this.cartApi.cartUpdate.next(true);

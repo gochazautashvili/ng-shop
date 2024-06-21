@@ -35,6 +35,6 @@ export class SignUpComponent {
   }
 
   signUp() {
-    this.userData.register(this.user).subscribe((data: any) => {});
+    this.userData.register(this.user);
   }
 }

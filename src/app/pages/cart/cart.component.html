@@ -1,6 +1,6 @@
 <p class="loading" *ngIf="loading && carts.length > 0">Loading...</p>
 <p class="loading" *ngIf="carts.length < 1">Cart is empty.</p>
-<table *ngIf="!loading" class="table">
+<table *ngIf="!loading && carts.length > 0 && !loading" class="table">
   <thead>
     <tr>
       <th scope="col">#</th>
@@ -17,18 +17,18 @@
       <td>
         <img
           class="img"
-          [src]="cart?.productId?.thumbnail"
+          [src]="cart?.thumbnail"
           alt=""
           width="60"
           height="60"
         />
       </td>
-      <td>{{ cart?.productId?.title }}</td>
-      <td>{{ cart?.productId?.stock }}</td>
-      <td>{{ cart?.productId?.rating }}</td>
+      <td>{{ cart?.title }}</td>
+      <td>{{ cart?.stock }}</td>
+      <td>{{ cart?.rating }}</td>
       <td>
         <span
-          (click)="deleteProductToCart(cart?.productId?._id)"
+          (click)="deleteProductToCart(cart?._id)"
           class="delete"
           type="button"
           >Delete</span

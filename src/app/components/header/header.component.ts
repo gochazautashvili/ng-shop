@@ -27,8 +27,16 @@ export class HeaderComponent {
     cart.getCart(token).subscribe((data: any) => {
       this.cartL = data.products;
     });
-    user.getUser(token).subscribe((res: any) => {
-      this.userData = res;
+    user.getUser(token).subscribe({
+      next: (res: any) => {
+        this.userData = res;
+      },
+      error: (error) => {
+        if (!error.ok) {
+          localStorage.removeItem('access_token');
+          localStorage.removeItem('refresh_token');
+        }
+      },
     });
   }
 

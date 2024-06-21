@@ -10,14 +10,15 @@ import { Subscription } from 'rxjs';
 })
 export class CartComponent {
   carts: any[] = [];
-  cartData: any[] = [];
   loading: boolean = false;
   private subscriptions: Subscription = new Subscription();
 
   constructor(
     private cartApi: CartService,
     private productApi: ProductsService
-  ) {
+  ) {}
+
+  ngOnInit() {
     this.getCart();
 
     this.subscriptions.add(
@@ -34,17 +35,13 @@ export class CartComponent {
 
     this.loading = true;
     this.carts = [];
-    this.cartApi.getCart(token).subscribe((data: any) => {
-      this.carts = data.products;
-      data.products.map((product: any) => {
+
+    this.cartApi.getCart(token).subscribe((cart: any) => {
+      cart.products.map((product: any) => {
         this.productApi
           .getProductsById(product.productId)
           .subscribe((data: any) => {
-            this.cartData.push(data);
-
-            for (let i = 0; i < this.carts.length; i++) {
-              this.carts[i].productId = this.cartData[i];
-            }
+            this.carts = [...this.carts, data];
             this.loading = false;
           });
       });
@@ -72,6 +69,7 @@ export class CartComponent {
 
     this.cartApi.checkout(token).subscribe((data: any) => {
       if (data.success) {
+        alert('checkout successfully :)');
         window.location.reload();
       }
     });

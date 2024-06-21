@@ -1,17 +1,22 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   register(user: any) {
     this.http
       .post('https://api.everrest.educata.dev/auth/sign_up', user)
       .subscribe({
-        next: (data: any) => {},
+        next: (data: any) => {
+          alert('რეგისტრაცია წარმატებით დასრულდა განაგრძეთ');
+          this.router.navigate(['auth/sign-in']);
+          window.location.reload();
+        },
         error: (error: any) => {
           if (!error.ok) {
             alert(error.error.error);

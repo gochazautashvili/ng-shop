@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { CartService } from '../../services/cart.service';
 import { ProductsService } from '../../services/products.service';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-cart',
@@ -11,7 +10,6 @@ import { Subscription } from 'rxjs';
 export class CartComponent {
   carts: any[] = [];
   loading: boolean = false;
-  private subscriptions: Subscription = new Subscription();
 
   constructor(
     private cartApi: CartService,
@@ -20,12 +18,6 @@ export class CartComponent {
 
   ngOnInit() {
     this.getCart();
-
-    this.subscriptions.add(
-      this.cartApi.cartUpdate.subscribe(() => {
-        this.getCart();
-      })
-    );
   }
 
   getCart() {
@@ -56,7 +48,7 @@ export class CartComponent {
     }
 
     this.cartApi.deleteCartProduct(id, token).subscribe((data) => {
-      this.cartApi.cartUpdate.next(true);
+      this.getCart();
     });
   }
 

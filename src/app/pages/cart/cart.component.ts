@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CartService } from '../../services/cart.service';
 import { ProductsService } from '../../services/products.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -13,7 +14,8 @@ export class CartComponent {
 
   constructor(
     private cartApi: CartService,
-    private productApi: ProductsService
+    private productApi: ProductsService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -23,10 +25,13 @@ export class CartComponent {
   getCart() {
     const token = localStorage.getItem('access_token');
 
-    if (!token) return;
+    if (!token) {
+      this.router.navigate(['/']);
+      return;
+    }
 
-    this.loading = true;
     this.carts = [];
+    this.loading = true;
 
     this.cartApi.getCart(token).subscribe((cart: any) => {
       cart.products.map((product: any) => {

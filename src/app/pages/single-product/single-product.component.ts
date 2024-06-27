@@ -53,11 +53,9 @@ export class SingleProductComponent {
               .getUserById(rating.userId, token)
               .subscribe((data: any) => {
                 this.users = [...this.users, { data, rating }];
-                if (this.user) {
-                  this.activeRating = [...this.activeRating, rating.userId];
-                  if (rating.userId == this.user._id) {
-                    this.activeRouteValue = rating.value;
-                  }
+                this.activeRating = [...this.activeRating, rating.userId];
+                if (rating?.userId == this.user?._id) {
+                  this.activeRouteValue = rating.value;
                 }
               });
           }

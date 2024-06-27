@@ -41,7 +41,9 @@
         <div class="box">
           <button
             [class]="
-              activeRating && activeRouteValue == 1 ? 'btn active' : 'btn'
+              activeRating.includes(user?._id) && activeRouteValue == 1
+                ? 'btn active'
+                : 'btn'
             "
             (click)="rateProduct(products._id, 1)"
             type="button"
@@ -50,7 +52,9 @@
           </button>
           <button
             [class]="
-              activeRating && activeRouteValue == 2 ? 'btn active' : 'btn'
+              activeRating.includes(user?._id) && activeRouteValue == 2
+                ? 'btn active'
+                : 'btn'
             "
             (click)="rateProduct(products._id, 2)"
             type="button"
@@ -59,7 +63,9 @@
           </button>
           <button
             [class]="
-              activeRating && activeRouteValue == 3 ? 'btn active' : 'btn'
+              activeRating.includes(user?._id) && activeRouteValue == 3
+                ? 'btn active'
+                : 'btn'
             "
             (click)="rateProduct(products._id, 3)"
             type="button"
@@ -68,7 +74,9 @@
           </button>
           <button
             [class]="
-              activeRating && activeRouteValue == 4 ? 'btn active' : 'btn'
+              activeRating.includes(user?._id) && activeRouteValue == 4
+                ? 'btn active'
+                : 'btn'
             "
             (click)="rateProduct(products._id, 4)"
             type="button"
@@ -77,7 +85,9 @@
           </button>
           <button
             [class]="
-              activeRating && activeRouteValue == 5 ? 'btn active' : 'btn'
+              activeRating.includes(user?._id) && activeRouteValue == 5
+                ? 'btn active'
+                : 'btn'
             "
             (click)="rateProduct(products._id, 5)"
             type="button"

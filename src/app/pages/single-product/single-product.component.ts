@@ -18,7 +18,7 @@ export class SingleProductComponent {
   isAddProduct: boolean = false;
   timer: number = 3000;
   isActive: boolean = false;
-  activeRating: boolean = false;
+  activeRating: any[] = [];
   activeRouteValue: number | null = null;
 
   constructor(
@@ -53,14 +53,12 @@ export class SingleProductComponent {
               .getUserById(rating.userId, token)
               .subscribe((data: any) => {
                 this.users = [...this.users, { data, rating }];
-                this.users.filter((userRate) => {
-                  if (userRate?.rating?.userId === this?.user?._id) {
-                    this.activeRouteValue = userRate.rating.value;
-                    this.activeRating = true;
-                  } else {
-                    this.activeRating = false;
+                if (this.user) {
+                  this.activeRating = [...this.activeRating, rating.userId];
+                  if (rating.userId == this.user._id) {
+                    this.activeRouteValue = rating.value;
                   }
-                });
+                }
               });
           }
         });

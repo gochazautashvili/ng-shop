@@ -20,6 +20,24 @@
   justify-content: space-between;
   flex-wrap: nowrap;
 
+  .logo-mobile {
+    display: none;
+
+    font-size: 30px;
+    font-weight: 800;
+    color: white;
+    cursor: pointer;
+    text-wrap: nowrap;
+
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin: 0;
+
+    @media (max-width: 540px) {
+      display: flex;
+    }
+  }
+
   .logo {
     font-size: 30px;
     font-weight: 800;
@@ -49,6 +67,15 @@
     max-width: 600px;
     height: 40px;
 
+    @media (max-width: 540px) {
+      height: 35px;
+    }
+
+    @media (max-width: 540px) {
+      margin: 0 10px;
+      gap: 5px;
+    }
+
     input {
       width: 100%;
       height: 100%;
@@ -61,25 +88,38 @@
       border: 1px solid white;
       border-radius: 8px;
       padding: 0 10px;
+
+      &:focus {
+        border: none;
+        box-shadow: 1px 3px 5px 0px snow;
+      }
     }
 
     button {
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: all 0.3s;
 
-      width: 130px;
+      width: 50px;
       height: 100%;
-
-      font-size: 18px;
-      font-weight: 700;
+      padding: 14px 12px;
 
       outline: none;
       border: 1px solid white;
       border-radius: 8px;
 
       background: none;
-      color: white;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.341);
+        padding: 14px;
+      }
+
+      @media (max-width: 540px) {
+        width: 35px;
+        padding: 8px;
+      }
     }
   }
 }
@@ -87,6 +127,14 @@
 .cart {
   position: relative;
   cursor: pointer;
+
+  svg {
+    transition: all 0.3s;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
 
   span {
     position: absolute;
@@ -114,11 +162,19 @@
   align-items: center;
   margin-left: 20px;
 
+  @media (max-width: 540px) {
+    margin-left: 0px;
+  }
+
   span {
     color: rgb(153, 110, 194);
     font-size: 25px;
     font-weight: 900;
     margin: 0 5px;
+
+    @media (max-width: 540px) {
+      margin: 0;
+    }
   }
 
   button {
@@ -130,6 +186,12 @@
     color: white;
     cursor: pointer;
     text-wrap: nowrap;
+    margin: 0;
+
+    @media (max-width: 540px) {
+      font-size: 14px;
+      font-weight: 400;
+    }
   }
 
   .signup {
@@ -153,21 +215,51 @@
   border-radius: 50%;
   object-fit: cover;
   margin-left: 30px;
+  cursor: pointer;
+
+  @media (max-width: 540px) {
+    margin-left: 10px;
+  }
 }
 
 .user__box {
   display: flex;
   align-items: center;
   gap: 10px;
+
+  position: relative;
+
+  transition: all 0.3s;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  .userMenu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: absolute;
+    bottom: -58px;
+    right: 1px;
+
+    width: 100px;
+    background: white;
+    border: 1px solid black;
+    border-radius: 8px;
+    padding: 10px;
+    z-index: 10;
+  }
 }
 
 .signout {
   background: none;
   outline: none;
 
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 500;
-  color: white;
+  color: black;
   cursor: pointer;
 
   border: none;

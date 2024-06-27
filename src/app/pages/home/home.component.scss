@@ -49,7 +49,15 @@
     }
 
     @media (max-width: 540px) {
-      font-size: 16px;
+      font-size: 14px;
+    }
+  }
+
+  .priceFilter {
+    span {
+      @media (max-width: 540px) {
+        font-size: 14px;
+      }
     }
   }
 
@@ -60,6 +68,10 @@
     gap: 10px;
 
     margin: 20px 0;
+
+    @media (max-width: 540px) {
+      margin: 10px 0;
+    }
 
     li {
       font-size: 20px;
@@ -78,7 +90,7 @@
       }
 
       @media (max-width: 540px) {
-        font-size: 14px;
+        font-size: 12px;
       }
     }
   }
@@ -88,7 +100,8 @@
   }
 
   @media (max-width: 540px) {
-    min-width: 150px;
+    min-width: 120px;
+    padding: 0;
   }
 }
 
@@ -126,8 +139,13 @@
       height: 100%;
       object-fit: contain;
       cursor: pointer;
+      transition: all 0.3s;
 
       border-radius: 8px;
+
+      &:hover {
+        transform: scale(0.9);
+      }
     }
   }
 
@@ -148,6 +166,8 @@
     cursor: pointer;
     margin-top: 20px;
 
+    transition: all 0.3s;
+
     width: 100%;
     height: 40px;
 
@@ -159,6 +179,16 @@
 
     border: none;
     outline: none;
+
+    &:hover {
+      background: transparent;
+      color: black;
+      outline: 1px solid black;
+    }
+
+    &:active {
+      background: #00000061;
+    }
 
     &:disabled {
       background-color: gray;

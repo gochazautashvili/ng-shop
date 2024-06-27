@@ -13,6 +13,7 @@ export class HeaderComponent {
   public keyword: string = '';
   public userData: any = null;
   public cartL: any[] = [];
+  public userMenu: boolean = false;
 
   constructor(
     private router: Router,
@@ -38,6 +39,10 @@ export class HeaderComponent {
         }
       },
     });
+  }
+
+  userControllers() {
+    this.userMenu = !this.userMenu;
   }
 
   signOut() {

@@ -1,6 +1,7 @@
 <header class="header">
   <nav class="navbar container">
     <h1 routerLink="" class="logo">Shop <span>Vibe</span></h1>
+    <h1 routerLink="" class="logo-mobile">NG</h1>
     <form class="search">
       <input
         type="text"
@@ -8,7 +9,20 @@
         placeholder="Search..."
         name="search"
       />
-      <button (click)="searchByCategory()" type="submit">Search</button>
+      <button (click)="searchByCategory()" type="submit" title="search">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          fill="white"
+          class="bi bi-search"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
+          />
+        </svg>
+      </button>
     </form>
     <div class="left">
       <div class="cart" routerLink="cart" *ngIf="userData">
@@ -27,21 +41,24 @@
       </div>
       <div class="user__box" *ngIf="userData">
         <img
+          (click)="userControllers()"
           [src]="userData?.avatar"
           width="40"
           height="40"
           class="user"
           alt="user"
         />
-        <button (click)="signOut()" class="signout" type="button">
-          Sign Out
-        </button>
+        <div *ngIf="userMenu" class="userMenu">
+          <button (click)="signOut()" class="signout" type="button">
+            Sign Out
+          </button>
+        </div>
       </div>
       <div class="auth" *ngIf="!userData">
         <button routerLink="auth/sign-up" class="signup" type="button">
           Sign Up
         </button>
-        <span>/</span>
+        <span>|</span>
         <button routerLink="auth/sign-in" class="signin" type="button">
           Sign In
         </button>

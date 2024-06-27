@@ -14,10 +14,12 @@ export class HomeComponent {
   loading: boolean = false;
   categories: any[] = [];
   brands: any[] = [];
-  activeLink: string | number = '';
   activePrice: string = '2000';
   activeRating: string = '1';
   user: any = null;
+
+  activeCategory: string | number = '';
+  activeBrand: string = '';
 
   constructor(
     private productsData: ProductsService,
@@ -34,6 +36,9 @@ export class HomeComponent {
     }
 
     route.queryParams.subscribe((data: any) => {
+      this.activeCategory = data.category;
+      this.activeBrand = data.brand;
+
       this.getSearchedProducts(
         data.keyword || '',
         data.category || '',
@@ -84,6 +89,8 @@ export class HomeComponent {
   }
 
   searchByCategory(category: string) {
+    this.activeCategory = category;
+
     if (category !== '') {
       this.router.navigate(['/'], {
         queryParams: { category: category },
@@ -96,6 +103,8 @@ export class HomeComponent {
   }
 
   searchByBrand(brand: string) {
+    this.activeBrand = brand;
+
     if (brand !== '') {
       this.router.navigate(['/'], {
         queryParams: { brand: brand },

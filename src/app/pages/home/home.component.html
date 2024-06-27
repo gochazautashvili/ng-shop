@@ -1,30 +1,30 @@
 <section class="content">
   <aside class="aside">
     <div>
-      <h1>Filter By Categories:</h1>
+      <h1>Category:</h1>
       <ul class="category">
         <li
           *ngFor="let category of categories"
           (click)="searchByCategory(category.id)"
-          [ngClass]="activeLink == category.id ? 'active' : ''"
+          [ngClass]="activeCategory == category.id ? 'active' : ''"
         >
           {{ category.name }}
         </li>
       </ul>
     </div>
     <div>
-      <h1>Filter By Brands:</h1>
+      <h1>Brand:</h1>
       <ul class="brand">
         <li
           *ngFor="let brand of brands"
           (click)="searchByBrand(brand)"
-          [ngClass]="activeLink == brand ? 'active' : ''"
+          [ngClass]="activeBrand == brand ? 'active' : ''"
         >
           {{ brand }}
         </li>
       </ul>
       <div class="priceFilter">
-        <span>Filter By Max Price: ${{ activePrice }}</span>
+        <span>Max Price: ${{ activePrice }}</span>
         <input
           (change)="handlePriceChange($event)"
           type="range"
@@ -35,7 +35,7 @@
         />
       </div>
       <div class="priceFilter">
-        <span>Filter By Rating: {{ activeRating }}</span>
+        <span>Rating: {{ activeRating }}</span>
         <input
           (change)="handleRatingChange($event)"
           type="range"

@@ -18,6 +18,8 @@ export class SingleProductComponent {
   isAddProduct: boolean = false;
   timer: number = 3000;
   isActive: boolean = false;
+  activeRating: boolean = false;
+  activeRouteValue: number | null = null;
 
   constructor(
     private productAPI: ProductsService,
@@ -29,9 +31,13 @@ export class SingleProductComponent {
   ) {}
 
   ngOnInit() {
+    this.getRate();
+  }
+
+  getRate() {
     const token = localStorage.getItem('access_token');
 
-    this.loading = true;
+    this.users = [];
 
     if (token) {
       this.userAPI.getUser(token).subscribe((data) => {
@@ -47,6 +53,14 @@ export class SingleProductComponent {
               .getUserById(rating.userId, token)
               .subscribe((data: any) => {
                 this.users = [...this.users, { data, rating }];
+                this.users.filter((userRate) => {
+                  if (userRate?.rating?.userId === this?.user?._id) {
+                    this.activeRouteValue = userRate.rating.value;
+                    this.activeRating = true;
+                  } else {
+                    this.activeRating = false;
+                  }
+                });
               });
           }
         });
@@ -69,7 +83,9 @@ export class SingleProductComponent {
     }
 
     this.productAPI.rateProduct(id, number, token).subscribe({
-      next: (data: any) => {},
+      next: (data: any) => {
+        this.getRate();
+      },
       error: (error) => {
         if (!error.ok) {
           alert(error.error.error);

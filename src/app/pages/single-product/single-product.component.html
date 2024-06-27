@@ -40,35 +40,45 @@
         <p>Rate:</p>
         <div class="box">
           <button
-            class="btn"
+            [class]="
+              activeRating && activeRouteValue == 1 ? 'btn active' : 'btn'
+            "
             (click)="rateProduct(products._id, 1)"
             type="button"
           >
             1
           </button>
           <button
-            class="btn"
+            [class]="
+              activeRating && activeRouteValue == 2 ? 'btn active' : 'btn'
+            "
             (click)="rateProduct(products._id, 2)"
             type="button"
           >
             2
           </button>
           <button
-            class="btn"
+            [class]="
+              activeRating && activeRouteValue == 3 ? 'btn active' : 'btn'
+            "
             (click)="rateProduct(products._id, 3)"
             type="button"
           >
             3
           </button>
           <button
-            class="btn"
+            [class]="
+              activeRating && activeRouteValue == 4 ? 'btn active' : 'btn'
+            "
             (click)="rateProduct(products._id, 4)"
             type="button"
           >
             4
           </button>
           <button
-            class="btn"
+            [class]="
+              activeRating && activeRouteValue == 5 ? 'btn active' : 'btn'
+            "
             (click)="rateProduct(products._id, 5)"
             type="button"
           >
@@ -88,7 +98,7 @@
       <div class="bottom">
         <div class="description">
           <p class="description__title">Description:</p>
-          {{ products?.description }}
+          <p class="description__desc">{{ products?.description }}</p>
         </div>
         <hr />
         <div class="review">

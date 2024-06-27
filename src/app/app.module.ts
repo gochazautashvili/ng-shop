@@ -14,6 +14,7 @@ import { ProductsService } from './services/products.service';
 import { FormsModule } from '@angular/forms';
 import { SignInComponent } from './pages/sign-in/sign-in.component';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { SignUpComponent } from './pages/sign-up/sign-up.component';
     SingleProductComponent,
     SignInComponent,
     SignUpComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

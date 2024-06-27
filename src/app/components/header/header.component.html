@@ -41,6 +41,7 @@
       </div>
       <div class="user__box" *ngIf="userData">
         <img
+          routerLink="user/profile"
           (click)="userControllers()"
           [src]="userData?.avatar"
           width="40"
@@ -48,11 +49,6 @@
           class="user"
           alt="user"
         />
-        <div *ngIf="userMenu" class="userMenu">
-          <button (click)="signOut()" class="signout" type="button">
-            Sign Out
-          </button>
-        </div>
       </div>
       <div class="auth" *ngIf="!userData">
         <button routerLink="auth/sign-up" class="signup" type="button">

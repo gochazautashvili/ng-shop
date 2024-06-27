@@ -1,0 +1,160 @@
+<section class="user">
+  <div class="avatar">
+    <img [src]="user?.avatar" alt="user" width="200" height="200" />
+    <div class="userInfo">
+      <h1>
+        FIrstName:
+        <span>{{ user?.firstName ? user?.firstName : "loading..." }}</span>
+      </h1>
+      <h1>
+        LastName:
+        <span>{{ user?.lastName ? user?.lastName : "loading..." }}</span>
+      </h1>
+      <h1>
+        Email: <span>{{ user?.email ? user?.email : "loading..." }}</span>
+      </h1>
+      <h1>
+        Phone: <span>{{ user?.phone ? user?.phone : "loading..." }}</span>
+      </h1>
+      <button (click)="passwordModule($event, true)" type="button">
+        Reset Password
+      </button>
+      <button (click)="signOut()" type="button">Sign Out</button>
+    </div>
+  </div>
+  <div class="content" *ngIf="user">
+    <div class="box">
+      <label for="firstName">Update Your FirstName</label>
+      <input
+        id="firstName"
+        [(ngModel)]="user.firstName"
+        type="text"
+        placeholder="Update your firstName"
+      />
+    </div>
+    <div class="box">
+      <label for="lastName">Update Your LastName</label>
+      <input
+        id="lastName"
+        [(ngModel)]="user.lastName"
+        type="text"
+        placeholder="Update your lastName"
+      />
+    </div>
+    <div class="box">
+      <label for="email">Update Your Email</label>
+      <input
+        id="email"
+        [(ngModel)]="user.email"
+        type="text"
+        placeholder="Update your email"
+      />
+    </div>
+    <div class="box">
+      <label for="age">Update Your Age</label>
+      <input
+        id="age"
+        [(ngModel)]="user.age"
+        type="number"
+        placeholder="Update your age"
+      />
+    </div>
+    <div class="box">
+      <label for="address">Update Your Address</label>
+      <input
+        id="address"
+        [(ngModel)]="user.address"
+        type="text"
+        placeholder="Update your address"
+      />
+    </div>
+    <div class="box">
+      <label for="phone">Update Your Phone</label>
+      <input
+        id="phone"
+        [(ngModel)]="user.phone"
+        type="text"
+        placeholder="Update your phone"
+      />
+    </div>
+    <div class="box">
+      <label for="zipcode">Update Your Zip Code</label>
+      <input
+        id="zipcode"
+        [(ngModel)]="user.zipcode"
+        type="text"
+        placeholder="Update your zipcode"
+      />
+    </div>
+    <div class="box">
+      <label for="avatar">Update Your Avatar</label>
+      <input
+        id="avatar"
+        [(ngModel)]="user.avatar"
+        type="text"
+        placeholder="Update your avatar"
+      />
+    </div>
+    <div class="gender">
+      <div class="cont">
+        <input
+          type="radio"
+          id="MALE"
+          name="gender"
+          title="MALE"
+          (change)="handleGenderChange('MALE')"
+          [checked]="user.gender == 'MALE'"
+        />
+        <label for="MALE">MALE</label>
+      </div>
+      <div class="cont">
+        <input
+          type="radio"
+          id="WOMEN"
+          name="gender"
+          title="WOMEN"
+          (change)="handleGenderChange('WOMEN')"
+          [checked]="user.gender == 'WOMEN'"
+        />
+        <label for="WOMEN">WOMEN</label>
+      </div>
+    </div>
+    <button class="update" (click)="updateUserProfile()" type="button">
+      {{ loading ? "u p d a t i n g..." : "Update Profile" }}
+    </button>
+  </div>
+</section>
+<div
+  id="module"
+  (click)="passwordModule($event)"
+  class="resetPassword"
+  *ngIf="passwordModelOpen"
+>
+  <div class="model">
+    <div class="box">
+      <label for="oldPassword">Enter Old Password</label>
+      <input
+        [(ngModel)]="resetpassword.oldPassword"
+        id="oldPassword"
+        type="password"
+        placeholder="Enter Your Old Password"
+      />
+    </div>
+    <div class="box">
+      <label for="newPassword">Enter New Password</label>
+      <input
+        [(ngModel)]="resetpassword.newPassword"
+        id="newPassword"
+        type="password"
+        placeholder="Enter your New Password"
+      />
+    </div>
+    <button
+      (click)="updateUserPassword()"
+      class="resetPasswordBtn"
+      type="button"
+    >
+      {{ passwordResetting ? "Loading..." : "Reset Password" }}
+    </button>
+  </div>
+</div>

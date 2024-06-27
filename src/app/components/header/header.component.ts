@@ -45,12 +45,6 @@ export class HeaderComponent {
     this.userMenu = !this.userMenu;
   }
 
-  signOut() {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');
-    window.location.reload();
-  }
-
   searchByCategory() {
     if (this.keyword.trim() !== '') {
       this.router.navigate(['/'], { queryParams: { keyword: this.keyword } });

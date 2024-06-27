@@ -70,4 +70,30 @@ export class UserService {
       email,
     });
   }
+
+  updateUserDate(token: string, updateUser: any) {
+    return this.http.patch(
+      'https://api.everrest.educata.dev/auth/update',
+      updateUser,
+      {
+        headers: {
+          accept: 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  }
+
+  updateUserPassword(token: string, resetpassword: any) {
+    return this.http.patch(
+      'https://api.everrest.educata.dev/auth/change_password',
+      resetpassword,
+      {
+        headers: {
+          accept: 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  }
 }

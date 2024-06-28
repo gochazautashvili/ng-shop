@@ -20,6 +20,7 @@ export class SingleProductComponent {
   isActive: boolean = false;
   activeRating: any[] = [];
   activeRouteValue: number | null = null;
+  cart: any[] = [];
 
   constructor(
     private productAPI: ProductsService,
@@ -32,6 +33,23 @@ export class SingleProductComponent {
 
   ngOnInit() {
     this.getRate();
+    this.getCart();
+  }
+
+  inCart(id: string) {
+    return this.cart.some((item) => item?.productId == id);
+  }
+
+  getCart() {
+    const token = localStorage.getItem('access_token');
+
+    if (!token) {
+      return;
+    }
+
+    this.cartApi.getCart(token).subscribe((res: any) => {
+      this.cart = res.products;
+    });
   }
 
   getRate() {
@@ -104,6 +122,7 @@ export class SingleProductComponent {
         next: (data) => {
           this.isAddProduct = true;
           this.isActive = false;
+          this.getCart();
 
           setTimeout(() => {
             this.isActive = true;

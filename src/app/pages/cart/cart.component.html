@@ -1,5 +1,5 @@
 <p class="loading" *ngIf="loading && carts.length > 0">Loading...</p>
-<p class="loading" *ngIf="carts.length < 1">Cart is empty.</p>
+<p class="loading" *ngIf="!loading && carts.length < 1">Cart is empty...</p>
 <table *ngIf="!loading && carts.length > 0 && !loading" class="table">
   <thead>
     <tr>
@@ -7,7 +7,8 @@
       <th scope="col">image</th>
       <th class="title" scope="col">title</th>
       <th scope="col">stock</th>
-      <th scope="col">rating</th>
+      <th class="rating" scope="col">rating</th>
+      <th scope="col">update</th>
       <th scope="col">action</th>
     </tr>
   </thead>
@@ -16,19 +17,39 @@
       <th scope="row">{{ i + 1 }}</th>
       <td>
         <img
+          [routerLink]="'/products/' + cart?.data?._id"
           class="img"
-          [src]="cart?.thumbnail"
+          [src]="cart?.data?.thumbnail"
           alt="img"
           width="60"
           height="60"
         />
       </td>
-      <td class="title">{{ cart?.title }}</td>
-      <td>{{ cart?.stock }}</td>
-      <td>{{ cart?.rating }}</td>
+      <td class="title">{{ cart?.data?.title }}</td>
+      <td>{{ cart?.data?.stock }}</td>
+      <td class="rating">{{ cart?.data?.rating }}</td>
+      <td>
+        <div class="updateQty">
+          <span
+            (click)="decrementQuantity(cart?.data?._id, products)"
+            class="update"
+            type="button"
+            >-</span
+          >
+          <span class="value">{{
+            calculateQuantity(products, cart?.data?._id)
+          }}</span>
+          <span
+            (click)="incrementQuantity(cart?.data?._id, products)"
+            class="update"
+            type="button"
+            >+</span
+          >
+        </div>
+      </td>
       <td>
         <span
-          (click)="deleteProductToCart(cart?._id)"
+          (click)="deleteProductToCart(cart?.data?._id)"
           class="delete"
           type="button"
           >Delete</span

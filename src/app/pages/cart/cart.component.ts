@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class CartComponent {
   carts: any[] = [];
+  products: any[] = [];
   loading: boolean = false;
 
   constructor(
@@ -20,6 +21,16 @@ export class CartComponent {
 
   ngOnInit() {
     this.getCart();
+  }
+
+  calculateQuantity(products: any, id: string) {
+    const filteredCart = products.filter((product: any) => {
+      if (product.productId == id) {
+        return product.quantity;
+      }
+    });
+
+    return filteredCart[0].quantity;
   }
 
   getCart() {
@@ -38,7 +49,8 @@ export class CartComponent {
         this.productApi
           .getProductsById(product.productId)
           .subscribe((data: any) => {
-            this.carts = [...this.carts, data];
+            this.carts = [...this.carts, { data }];
+            this.products = cart.products;
             this.loading = false;
           });
       });
@@ -68,6 +80,56 @@ export class CartComponent {
       if (data.success) {
         alert('checkout successfully :)');
         window.location.reload();
+      }
+    });
+  }
+
+  incrementQuantity(id: string, products: any) {
+    const token = localStorage.getItem('access_token');
+
+    if (!token) {
+      alert('Unauthorized');
+      this.router.navigate(['/auth/sign-in']);
+      return;
+    }
+
+    products.forEach((item: any) => {
+      if (item.productId == id) {
+        this.cartApi.updateCart(id, item.quantity + 1, token).subscribe({
+          next: (data) => {
+            this.getCart();
+          },
+          error: (error) => {
+            if (!error.ok) {
+              alert(error.error.error);
+            }
+          },
+        });
+      }
+    });
+  }
+
+  decrementQuantity(id: string, products: any) {
+    const token = localStorage.getItem('access_token');
+
+    if (!token) {
+      alert('Unauthorized');
+      this.router.navigate(['/auth/sign-in']);
+      return;
+    }
+
+    products.forEach((item: any) => {
+      if (item.productId == id) {
+        this.cartApi.updateCart(id, item.quantity - 1, token).subscribe({
+          next: (data) => {
+            this.getCart();
+          },
+          error: (error) => {
+            if (!error.ok) {
+              alert(error.error.error);
+            }
+          },
+        });
       }
     });
   }

@@ -97,12 +97,12 @@
         </div>
       </div>
       <button
-        [disabled]="products?.stock < 1"
+        [disabled]="products?.stock < 1 || inCart(products?._id)"
         (click)="handleAddInToCart(products._id)"
         type="button"
         class="addToCart"
       >
-        Add To Cart
+        {{ inCart(products?._id) ? "Already in cart" : "Add To Cart" }}
       </button>
       <hr />
       <div class="bottom">
